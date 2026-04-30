@@ -18,6 +18,7 @@ Comprehensive SEO analysis skill for Claude Code. 21 core sub-skills covering te
 ## Table of Contents
 
 - [Installation](#installation)
+- [Hermes Adaptation](#hermes-adaptation)
 - [Quick Start](#quick-start)
 - [Commands](#commands)
 - [Features](#features)
@@ -81,6 +82,47 @@ powershell -ExecutionPolicy Bypass -File claude-seo\install.ps1
 ```
 
 > **Why git clone instead of `irm | iex`?** Claude Code's own security guardrails flag `irm ... | iex` as a supply chain risk (downloading and executing remote code with no verification). The git clone approach lets you inspect the script at `claude-seo\install.ps1` before running it.
+
+## Hermes Adaptation
+
+This fork now includes a Hermes-first entrypoint that compresses the original Claude subagent tree into a single orchestrator skill.
+
+New files:
+- `hermes/claude-seo-orchestrator/SKILL.md`
+- `HERMES.md`
+- `install-hermes.sh`
+
+### Hermes install
+
+```bash
+bash install-hermes.sh
+```
+
+This installs the orchestrator skill to:
+
+```bash
+~/.hermes/skills/claude-seo-orchestrator/
+```
+
+### Hermes usage
+
+Load the skill and ask in natural language instead of using Claude slash commands.
+
+Examples:
+
+```bash
+hermes -s claude-seo-orchestrator
+```
+
+Then ask things like:
+- `Faça uma auditoria SEO completa de https://example.com usando o repositório claude-seo`
+- `Analise tecnicamente https://example.com com o toolkit claude-seo`
+- `Aplique FLOW optimize em https://example.com usando os prompts do repo`
+
+Important:
+- the original `agents/` directory is now treated as reference material for Hermes, not a required runtime structure
+- the execution backend remains the repo skills, references, and Python scripts
+- README is still primarily Claude-first; see `HERMES.md` for the Hermes operational layer
 
 ## Quick Start
 
