@@ -5,8 +5,8 @@
 
 ## Overview
 
-Claude SEO is a Tier 4 SEO analysis skill with 20 core sub-skills (+ 3 extensions),
-15 core subagents (+ 2 extension agents, 17 total), and 30 Python execution scripts.
+Claude SEO is a Tier 4 SEO analysis skill with 21 core sub-skills (+ 3 extensions),
+16 core subagents (+ 2 extension agents, 18 total), and 30 Python execution scripts.
 
 ## Quick Reference
 
@@ -81,12 +81,12 @@ bash install.sh
 ## Architecture
 
 ```
-skills/                    # 23 skills (auto-discovered)
+skills/                    # 24 skills (auto-discovered)
   seo/SKILL.md            # Main orchestrator + routing
-  seo-cluster/            # Semantic clustering (v1.9.0)
-  seo-sxo/                # Search Experience Optimization (v1.9.0)
-  seo-drift/              # SEO drift monitoring (v1.9.0)
-  seo-ecommerce/          # E-commerce SEO (v1.9.0)
+  seo-cluster/            # Semantic clustering (v1.9.6)
+  seo-sxo/                # Search Experience Optimization (v1.9.6)
+  seo-drift/              # SEO drift monitoring (v1.9.6)
+  seo-ecommerce/          # E-commerce SEO (v1.9.6)
   seo-audit/              # Full site audit
   seo-page/               # Single-page analysis
   seo-technical/          # Technical SEO
@@ -103,9 +103,10 @@ skills/                    # 23 skills (auto-discovered)
   seo-backlinks/          # Backlink analysis
   seo-programmatic/       # Programmatic SEO
   seo-competitor-pages/   # Competitor pages
+  seo-flow/               # FLOW framework integration
   seo-dataforseo/         # DataForSEO (extension)
   seo-image-gen/          # AI images (extension)
-agents/                    # 17 subagents
+agents/                    # 18 subagents
 scripts/                   # 30 Python scripts
 schema/                    # JSON-LD templates
 extensions/                # Optional add-ons (DataForSEO, Firecrawl, Banana, ASO)

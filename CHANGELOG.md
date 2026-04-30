@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Fork readiness:** `scripts/sync_flow.py` now falls back to `git credential fill` when `gh` CLI is unavailable, allowing authenticated GitHub API retries in environments that only have git credential helpers configured
 - **Install version pin:** `install.sh` and `install.ps1` now default to `v1.9.6` instead of stale `v1.9.0`, so fresh installs pull the current stable release
 - **Antigravity docs:** `AGENTS.md` now points to `.claude-plugin/plugin.json` instead of claiming the manifest lives at repo root
+- **Metadata consistency:** `AGENTS.md`, `CLAUDE.md`, and `.claude-plugin/plugin.json` now reflect the current skill/agent counts and manifest versioning
+- **Script inventory docs:** `CLAUDE.md` now lists the actual tracked Python scripts in the repository
+
+### CI
+- Replaced per-file `py_compile` checks with `python3 -m compileall scripts`
+- Added a dedicated `pytest` job for `tests/test_sync_flow.py`
+- Added install pin smoke checks for `install.sh` and `install.ps1`
+
+### Tests
+- Added coverage for `git credential fill` fallback in `tests/test_sync_flow.py`
+- Clarified CI test job naming so it no longer claims the suite is fully offline
 
 ## [1.9.6] - 2026-04-26
 

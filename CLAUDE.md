@@ -6,7 +6,7 @@ This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehe
 SEO analysis across all industries. It follows the Agent Skills open standard and the
 3-layer architecture (directive, orchestration, execution). 21 core sub-skills (+ 3
 extensions), 16 core subagents (+ 2 extension agents, 18 total), and an extensible reference
-system cover technical SEO, content quality,
+system plus 30 Python execution scripts cover technical SEO, content quality,
 schema markup, image optimization, sitemap architecture, AI search optimization,
 local SEO (GBP, citations, reviews, map pack), maps intelligence, semantic topic
 clustering, search experience optimization (SXO), SEO drift monitoring, e-commerce
@@ -20,7 +20,7 @@ claude-seo/
   CONTRIBUTORS.md                    # Community credits (Pro Hub Challenge)
   AGENTS.md                          # Multi-platform agent instructions (Cursor, Antigravity)
   .claude-plugin/
-    plugin.json                    # Plugin manifest (v1.9.0)
+    plugin.json                    # Plugin manifest (v1.9.6)
     marketplace.json               # Marketplace catalog for distribution
   skills/                            # 24 skills (auto-discovered)
     seo/                           # Main orchestrator skill
@@ -81,7 +81,7 @@ claude-seo/
     seo-ecommerce.md             # E-commerce SEO analysis
   hooks/                           # Quality gate hooks
     hooks.json                   # PostToolUse schema validation
-  scripts/                         # Python execution scripts (30 tracked + 2 dev-only)
+  scripts/                         # Python execution scripts (30 tracked)
     google_auth.py               # Credential management (OAuth, SA, API key, 4-tier detection)
     backlinks_auth.py            # Backlink API credential management (Moz, Bing)
     moz_api.py                   # Moz Link Explorer API (DA/PA, spam, domains, anchors)
@@ -110,7 +110,8 @@ claude-seo/
     dataforseo_merchant.py       # Google Shopping / Amazon data fetching
     dataforseo_normalize.py      # DataForSEO response normalization utility
     sync_flow.py                 # FLOW prompt library sync (GitHub API, CC BY 4.0 headers, --dry-run, --ref)
-    mobile_analysis.py           # Mobile rendering analysis (gitignored, dev-only)
+    release_report.py            # Release notes/reporting helper
+    validate_backlink_report.py  # Backlink report schema/shape validator
   schema/                          # Schema.org JSON-LD templates
   extensions/                      # Optional add-on install helpers
     dataforseo/                  # DataForSEO MCP install scripts

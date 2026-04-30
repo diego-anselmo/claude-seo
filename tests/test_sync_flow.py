@@ -129,15 +129,40 @@ def test_base_headers_has_no_authorization():
 
 
 def test_authed_headers_degrades_when_gh_missing(monkeypatch):
-    """_authed_headers() returns base headers if gh CLI is not on PATH (VULN-A06)."""
+    """_authed_headers() returns base headers if gh CLI and git credential helper are unavailable (VULN-A06)."""
     sf = _load_sync_flow_module()
 
-    def _fake_run(*args, **kwargs):
-        raise FileNotFoundError("gh not found")
+    def _fake_run(args, *a, **kwargs):
+        if args[:2] == ["gh", "auth"]:
+            raise FileNotFoundError("gh not found")
+        if args[:2] == ["git", "credential"]:
+            raise FileNotFoundError("git credential not found")
+        raise AssertionError(f"unexpected subprocess call: {args}")
 
     monkeypatch.setattr(sf.subprocess, "run", _fake_run)
     headers = sf._authed_headers()
     assert "Authorization" not in headers
+
+
+def test_authed_headers_uses_git_credential_fallback(monkeypatch):
+    """_authed_headers() should use git credential fill when gh CLI is unavailable."""
+    sf = _load_sync_flow_module()
+
+    class Result:
+        def __init__(self, returncode=0, stdout=""):
+            self.returncode = returncode
+            self.stdout = stdout
+
+    def _fake_run(args, *a, **kwargs):
+        if args[:2] == ["gh", "auth"]:
+            raise FileNotFoundError("gh not found")
+        if args[:2] == ["git", "credential"]:
+            return Result(stdout="protocol=https\nhost=github.com\nusername=tester\npassword=abc123\n")
+        raise AssertionError(f"unexpected subprocess call: {args}")
+
+    monkeypatch.setattr(sf.subprocess, "run", _fake_run)
+    headers = sf._authed_headers()
+    assert headers["Authorization"] == "Bearer abc123"
 
 
 # ── Task 3 tests ──────────────────────────────────────────────────────────────
