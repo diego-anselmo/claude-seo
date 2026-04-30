@@ -71,7 +71,7 @@ DATAFORSEO_USERNAME=user DATAFORSEO_PASSWORD=pass python scripts/dataforseo_merc
 
 ## Using with Google Antigravity
 
-Antigravity discovers this project via `plugin.json` at the repo root.
+Antigravity discovers this project via `.claude-plugin/plugin.json`.
 Place the repo in `~/.gemini/antigravity/plugins/claude-seo/` or install via:
 
 ```bash

@@ -61,15 +61,44 @@ def _base_headers():
     }
 
 
-def _authed_headers():
-    """Returns authenticated headers, or base headers if gh CLI is absent or unauthed."""
+def _discover_github_token():
+    """Best-effort GitHub token discovery for authenticated API fallback."""
+    token = os.environ.get("GITHUB_TOKEN", "").strip()
+    if token:
+        return token
+
     try:
         result = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True)
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()
     except FileNotFoundError:
+        pass
+
+    try:
+        cred_input = "protocol=https\nhost=github.com\n\n"
+        result = subprocess.run(
+            ["git", "credential", "fill"],
+            input=cred_input,
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode == 0:
+            for line in result.stdout.splitlines():
+                if line.startswith("password="):
+                    token = line.split("=", 1)[1].strip()
+                    if token:
+                        return token
+    except FileNotFoundError:
+        pass
+
+    return ""
+
+
+def _authed_headers():
+    """Returns authenticated headers, or base headers if no token is available."""
+    token = _discover_github_token()
+    if not token:
         return _base_headers()
-    if result.returncode != 0 or not result.stdout.strip():
-        return _base_headers()
-    token = result.stdout.strip()
     return {**_base_headers(), "Authorization": f"Bearer {token}"}
 
 

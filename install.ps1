@@ -85,9 +85,9 @@ try {
 $SkillDir = "$env:USERPROFILE\.claude\skills\seo"
 $AgentDir = "$env:USERPROFILE\.claude\agents"
 $RepoUrl = "https://github.com/AgriciDaniel/claude-seo"
-# Pin to a specific release tag to prevent silent updates from main.
+# Pin to the current stable release tag to prevent silent updates from main.
 # Override: $env:CLAUDE_SEO_TAG = 'main'; .\install.ps1
-$RepoTag = if ($env:CLAUDE_SEO_TAG) { $env:CLAUDE_SEO_TAG } else { 'v1.9.0' }
+$RepoTag = if ($env:CLAUDE_SEO_TAG) { $env:CLAUDE_SEO_TAG } else { 'v1.9.6' }
 
 # Create directories
 New-Item -ItemType Directory -Force -Path $SkillDir | Out-Null

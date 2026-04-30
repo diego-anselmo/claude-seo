@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.7] - 2026-04-30
+
+### Fixed
+- **Fork readiness:** `scripts/sync_flow.py` now falls back to `git credential fill` when `gh` CLI is unavailable, allowing authenticated GitHub API retries in environments that only have git credential helpers configured
+- **Install version pin:** `install.sh` and `install.ps1` now default to `v1.9.6` instead of stale `v1.9.0`, so fresh installs pull the current stable release
+- **Antigravity docs:** `AGENTS.md` now points to `.claude-plugin/plugin.json` instead of claiming the manifest lives at repo root
+
 ## [1.9.6] - 2026-04-26
 
 ### Security
